@@ -43,9 +43,18 @@ public class TestApp {
 			
 			session.save(user);
 			session.getTransaction().commit();
+			session.close();
 			
-			System.out.println(user.getListOfAddress());
+			user=null;
+			session= factory.openSession();
+			user= session.get(UserDetails.class, 1);
+			
+			System.out.println(user);
+			
+			System.out.println("Now getting Address=============>");
+			session.close();
 
+			System.out.println(user.getListOfAddress());
 			System.out.println("User Saved Successfully...");
 		} catch (Exception e) {
 			e.printStackTrace();
